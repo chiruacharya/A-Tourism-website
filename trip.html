@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trip Itinerary Planner</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background:#f5f7fb; margin:0; padding:20px; }
+    .container { max-width:1000px; margin:auto; background:white; padding:20px;
+                 border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.1);}
+    h2 { text-align:center; color:#3173c3; margin-bottom:20px;}
+    .form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; margin-bottom:15px;}
+    input,select,textarea { width:100%; padding:10px; border:1px solid #ccc; border-radius:8px;}
+    button.add-btn { grid-column:span 2; padding:12px; background:#3173c3; color:white; border:none; border-radius:8px; cursor:pointer;}
+    button.add-btn:hover {background:#245a8f;}
+    table {width:100%; border-collapse:collapse; margin-top:15px;}
+    th,td {padding:12px; text-align:center; border-bottom:1px solid #eee;}
+    th {background:#3173c3; color:white;}
+    .action-btn{padding:6px 10px;margin:0 3px;border:none;border-radius:5px;cursor:pointer;}
+    .delete-btn{background:#e74c3c;color:white;}
+    .edit-btn{background:#f39c12;color:white;}
+    .tag{padding:4px 10px;border-radius:5px;color:white;}
+    .Sightseeing{background:#3498db;} .Transport{background:#27ae60;}
+    .Food{background:#e67e22;} .Accommodation{background:#8e44ad;}
+    .Entertainment{background:#f1c40f; color:#333;} .Shopping{background:#ff69b4;}
+    .Other{background:#95a5a6;}
+    .empty-msg{text-align:center;color:#777;padding:20px;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>✈️ Trip Planner</h2>
+    <div class="form-grid">
+      <input type="date" id="activityStartDate" placeholder="Start Date" />
+      <input type="date" id="activityEndDate" placeholder="End Date" />
+      <input type="time" id="activityTime" placeholder="Start Time"/>
+      <input type="number" id="expectedDuration" placeholder="Duration (hrs)" step="0.5" />
+      <select id="activityType">
+        <option value="">Any Type</option>
+        <option value="Sightseeing">Sightseeing</option>
+        <option value="Transport">Transport</option>
+        <option value="Food">Food</option>
+        <option value="Accommodation">Accommodation</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="text" id="activityLocation" placeholder="Location" />
+      <textarea id="activityDesc" rows="1" placeholder="Description"></textarea>
+      <button class="add-btn" onclick="addActivity()">➕ Add Activity</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>From</th><th>To</th><th>Start Time</th><th>End Time</th>
+          <th>Type</th><th>Description</th><th>Location</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="scheduleTableBody">
+        <tr><td colspan="8" class="empty-msg">No activities yet 🙌</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+<script>
+  let schedule = [];
+
+  function addActivity() {
+    let startDate = document.getElementById('activityStartDate').value || "-";
+    let endDate = document.getElementById('activityEndDate').value || "-";
+    let startTime = document.getElementById('activityTime').value || "-";
+    let duration = parseFloat(document.getElementById('expectedDuration').value);
+    let type = document.getElementById('activityType').value || "Other";
+    let desc = document.getElementById('activityDesc').value.trim() || "No description";
+    let location = document.getElementById('activityLocation').value.trim() || "-";
+
+
+    let endTime = "-";
+    if (startTime !== "-" && !isNaN(duration) && duration > 0) {
+      const [hrs, mins] = startTime.split(":").map(Number);
+      const totalMins = hrs*60 + mins + duration*60;
+      const endHrs = Math.floor(totalMins/60)%24, endMins=totalMins%60;
+      endTime = `${String(endHrs).padStart(2,'0')}:${String(endMins).padStart(2,'0')}`;
+    }
+
+    schedule.push({startDate, endDate, startTime, endTime, type, desc, location});
+    clearForm();
+    renderSchedule();
+  }
+
+  function clearForm() {
+    document.querySelectorAll('#activityStartDate,#activityEndDate,#activityTime,#expectedDuration,#activityType,#activityDesc,#activityLocation')
+      .forEach(el=>el.value="");
+  }
+
+  function renderSchedule() {
+    const tbody=document.getElementById('scheduleTableBody');
+    tbody.innerHTML='';
+    if(schedule.length===0){
+      tbody.innerHTML=`<tr><td colspan="8" class="empty-msg">No activities yet 🙌</td></tr>`;
+      return;
+    }
+    schedule.sort((a,b)=>(a.startDate+a.startTime).localeCompare(b.startDate+b.startTime));
+    schedule.forEach((item,index)=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td>${item.startDate}</td>
+        <td>${item.endDate}</td>
+        <td>${item.startTime}</td>
+        <td>${item.endTime}</td>
+        <td><span class="tag ${item.type}">${item.type}</span></td>
+        <td>${item.desc}</td>
+        <td>${item.location}</td>
+        <td>
+          <button class="action-btn edit-btn" onclick="editActivity(${index})">✏</button>
+          <button class="action-btn delete-btn" onclick="deleteActivity(${index})">🗑</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function deleteActivity(index){
+    if(confirm("Delete this activity?")){ schedule.splice(index,1); renderSchedule(); }
+  }
+
+  function editActivity(index){
+    const act=schedule[index];
+    document.getElementById('activityStartDate').value=act.startDate!=="-"?act.startDate:"";
+    document.getElementById('activityEndDate').value=act.endDate!=="-"?act.endDate:"";
+    document.getElementById('activityTime').value=act.startTime!=="-"?act.startTime:"";
+    document.getElementById('activityType').value=act.type;
+    document.getElementById('activityDesc').value=act.desc!=="No description"?act.desc:"";
+    document.getElementById('activityLocation').value=act.location!=="-"?act.location:"";
+    schedule.splice(index,1);
+    renderSchedule();
+  }
+
+  schedule=[
+    {startDate:"2025-09-03",endDate:"2025-09-05",startTime:"09:00",endTime:"-",type:"Accommodation",desc:"Hotel stay",location:"Delhi"},
+    {startDate:"2025-09-04",endDate:"-",startTime:"10:00",endTime:"12:00",type:"Sightseeing",desc:"Taj Mahal tour",location:"Agra"}
+  ];
+  renderSchedule();
+</script>
+</body>
+</html>

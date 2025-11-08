@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planner - Jharkhand Tourism</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: #f8f9fa; }
+        .container { max-width: 800px; margin: 2rem auto; padding: 0 20px; }
+        .header { text-align: center; margin-bottom: 2rem; }
+        .header h1 { color: #667eea; margin-bottom: 0.5rem; }
+        .budget-form { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        .btn-calculate { width: 100%; padding: 15px; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+        .btn-calculate:hover { background: #5a67d8; }
+        .result { margin-top: 2rem; padding: 2rem; background: #e8f5e8; border-radius: 15px; display: none; }
+        .result h3 { color: #2d5a2d; margin-bottom: 1rem; }
+        .breakdown { display: grid; gap: 1rem; }
+        .breakdown-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #ddd; }
+        .total { font-size: 1.2rem; font-weight: bold; color: #667eea; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #667eea; }
+        .back-btn { display: inline-block; margin-bottom: 2rem; padding: 10px 20px; background: #6c757d; color: white; text-decoration: none; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        
+        <div class="header">
+            <h1>Trip Budget Planner</h1>
+            <p>Plan your perfect trip to Jharkhand within your budget</p>
+        </div>
+
+        <div class="budget-form">
+            <form id="budgetForm">
+                <div class="form-group">
+                    <label for="duration">Trip Duration (days)</label>
+                    <input type="number" id="duration" min="1" max="30" value="3" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="travelers">Number of Travelers</label>
+                    <input type="number" id="travelers" min="1" max="20" value="2" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="budgetType">Budget Category</label>
+                    <select id="budgetType" required>
+                        <option value="budget">Budget (₹1,500-2,500/day)</option>
+                        <option value="mid">Mid-range (₹2,500-5,000/day)</option>
+                        <option value="luxury">Luxury (₹5,000+/day)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transport">Transportation</label>
+                    <select id="transport" required>
+                        <option value="bus">Bus</option>
+                        <option value="train">Train</option>
+                        <option value="flight">Flight</option>
+                        <option value="car">Private Car</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="destinations">Number of Destinations</label>
+                    <input type="number" id="destinations" min="1" max="10" value="2" required>
+                </div>
+
+                <button type="submit" class="btn-calculate">Calculate Budget</button>
+            </form>
+
+            <div id="result" class="result">
+                <h3>Your Trip Budget Breakdown</h3>
+                <div class="breakdown" id="breakdown"></div>
+                <div class="total" id="total"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('budgetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateBudget();
+        });
+
+        function calculateBudget() {
+            const duration = parseInt(document.getElementById('duration').value);
+            const travelers = parseInt(document.getElementById('travelers').value);
+            const budgetType = document.getElementById('budgetType').value;
+            const transport = document.getElementById('transport').value;
+            const destinations = parseInt(document.getElementById('destinations').value);
+
+            
+            const baseCosts = {
+                budget: { accommodation: 800, food: 600, activities: 400 },
+                mid: { accommodation: 2000, food: 1200, activities: 1000 },
+                luxury: { accommodation: 4000, food: 2500, activities: 2000 }
+            };
+
+            
+            const transportCosts = {
+                bus: 500 * travelers,
+                train: 1200 * travelers,
+                flight: 8000 * travelers,
+                car: 2000 + (destinations * 500)
+            };
+
+            const dailyCost = baseCosts[budgetType];
+            const accommodationTotal = dailyCost.accommodation * duration * travelers;
+            const foodTotal = dailyCost.food * duration * travelers;
+            const activitiesTotal = dailyCost.activities * duration * travelers;
+            const transportTotal = transportCosts[transport];
+            const miscTotal = Math.round((accommodationTotal + foodTotal + activitiesTotal) * 0.1);
+
+            const grandTotal = accommodationTotal + foodTotal + activitiesTotal + transportTotal + miscTotal;
+
+            displayResult({
+                accommodation: accommodationTotal,
+                food: foodTotal,
+                activities: activitiesTotal,
+                transport: transportTotal,
+                misc: miscTotal,
+                total: grandTotal
+            });
+        }
+
+        function displayResult(costs) {
+            const breakdown = document.getElementById('breakdown');
+            const total = document.getElementById('total');
+            const result = document.getElementById('result');
+
+            breakdown.innerHTML = `
+                <div class="breakdown-item">
+                    <span>Accommodation</span>
+                    <span>₹${costs.accommodation.toLocaleString()}</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Food & Dining</span>
+                    <span>₹${costs.food.toLocaleString()}</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Activities & Sightseeing</span>
+                    <span>₹${costs.activities.toLocaleString()}</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Transportation</span>
+                    <span>₹${costs.transport.toLocaleString()}</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Miscellaneous</span>
+                    <span>₹${costs.misc.toLocaleString()}</span>
+                </div>
+            `;
+
+            total.innerHTML = `Total Estimated Cost: ₹${costs.total.toLocaleString()}`;
+            result.style.display = 'block';
+            result.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

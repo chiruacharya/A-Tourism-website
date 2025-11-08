@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Point Tourism - Discover the Heart of World</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="download.jpeg" alt="Logo">
+        <span>Travel Point</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#culture">Culture</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li class="language-selector">
+          <select id="languageSelect">
+            <option value="en">English</option>
+            <option value="ka">ಕನ್ನಡ</option>
+            <option value="hi">हिंदी</option>
+
+          </select>
+        </li>
+      </ul>
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="hero-content">
+      <h1 data-translate="hero-title">Discover World</h1>
+      <p data-translate="hero-subtitle">Nature | Adventure | Culture | Heritage</p>
+      <div class="hero-buttons">
+        <a href="#explore" class="btn-primary" data-translate="explore-now">Explore Now</a>
+      </div>
+      <form class="search-bar">
+        <input type="text" placeholder="Search destinations, festivals, experiences..." data-translate-placeholder="search-placeholder">
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+    <div class="hero-video">
+      <video autoplay muted loop>
+        <source src="videoplayback.mp4" type="video/mp4">
+      </video>
+    </div>
+  </header>
+
+  <section class="quick-access">
+    <div class="container">
+      <div class="access-grid">
+        <div class="access-card" onclick="openModal('emergency')">
+          <i class=" fas fa-ambulance " > </i>
+          <span data-translate= " emergency"> Emergency</span>
+        </div>
+        <div class="access-card" onclick="openModal('transport')">
+          <i class="fas fa-bus"></i><br>
+          <span data-translate="transport">Transport</span>
+        </div>
+        <div class="access-card" onclick="openModal('accommodation')">
+          <i class="fas fa-bed"></i><br>
+          <span data-translate="accommodation">Stay</span>
+        </div>
+        <div class="access-card" onclick="openModal('guide')">
+          <i class="fas fa-user-tie"></i><br>
+          <span data-translate="guide">Guide</span>
+        </div>
+        <div class="access-card" onclick="openModal('food')">
+          <i class="fas fa-utensils"></i><br>
+          <span data-translate="food">Food</span>
+        </div>
+        <div class="access-card" onclick="openModal('budget')">
+          <i class="fas fa-calculator"></i><br>
+          <span data-translate="budget">Budget</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="destinations" class="destinations">
+    <div class="container">
+      <h2 data-translate="top-destinations">Top Destinations</h2>
+      <div class="destination-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="nature">Nature</button>
+        <button class="filter-btn" data-filter="heritage">Heritage</button>
+        <button class="filter-btn" data-filter="adventure">Adventure</button>
+      </div>
+      <div class="destinations-grid">
+        <div class="destination-card" data-category="nature">
+          <img src="DUBAI pic.jpeg">
+            <h3>Dubai</h3>
+            <p>Where modern dreams rise from golden sands</p>
+            <div class="card-actions">
+              <button class="btn-ar" onclick="startAR('netarhat')">AR View</button>
+              <button class="btn-map" onclick="showMap('netarhat')">Map</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card" data-category="nature">
+          <img src="Japan.jpeg">
+          <div class="card-content">
+            <h3>Japan</h3>
+            <p>A perfect harmony of tradition and technology</p>
+            <div class="card-actions">
+              <button class="btn-ar" onclick="startAR('hundru')">AR View</button>
+              <button class="btn-map" onclick="showMap('hundru')">Map</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card" data-category="heritage">
+          <img src="India Hampi.jpeg" alt="India">
+          <div class="card-content">
+            <h3>India</h3>
+            <p>Where Every Journey Becomes a Lifetime Memory.</p>
+            <div class="card-actions">
+              <button class="btn-ar" onclick="startAR('parasnath')">AR View</button>
+              <button class="btn-map" onclick="showMap('parasnath')">Map</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card" data-category="nature">
+          <img src="London.jpeg" alt="London">
+          <div class="card-content">
+            <h3>London</h3>
+            <p>Where royal charm meets modern elegance</p>
+            <div class="card-actions">
+              <button class="btn-ar" onclick="startAR('hundru')">AR View</button>
+              <button class="btn-map" onclick="showMap('hundru')">Map</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card" data-category="nature">
+          <img src="France.jpeg" alt="France">
+          <div class="card-content">
+            <h3>France</h3>
+            <p>Fall in love with every corner of the City of Lights</p>
+            <div class="card-actions">
+              <button class="btn-ar" onclick="startAR('hundru')">AR View</button>
+              <button class="btn-map" onclick="showMap('hundru')">Map</button>
+            </div>
+          </div>
+        </div>
+        <div class="destination-card" data-category="adventure">
+          <img src="Switzerland.jpeg" alt="Switzerland">
+          <div class="card-content">
+            <h3>Switzerland</h3>
+            <p>Heaven on Earth — where nature paints perfection</p>
+            <div class="card-actions">
+              <button class="btn-ar" onclick="startAR('betla')">AR View</button>
+              <button class="btn-map" onclick="showMap('betla')">Map</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="culture" class="culture-section">
+    <div class="container">
+      <div class="culture-content">
+        <div class="culture-text">
+          <h2 data-translate="tribal-culture">Experience Tribal Lifestyle</h2>
+          <p data-translate="culture-desc">Witness the vibrant tribal dances, local festivals and crafts that make country truly unique. Immerse yourself in Sarhul, Karma, and the soulful music of the region.</p>
+          <div class="culture-features">
+            <div class="feature">
+              <i class="fas fa-music"></i>
+              <span>Traditional Music</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-palette"></i>
+              <span>Handicrafts</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-calendar"></i>
+              <span>Festivals</span>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="openModal('culture')">Explore Culture</button>
+        </div>
+        <div class="culture-media">
+          <div class="culture-gallery">
+            <img src="Tribal.jpeg" alt="Tribal group">
+            <div class="gallery-overlay">
+              <button onclick="startVR('culture')">VR Experience</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    <div class="container">
+      <div class="culture-content">
+        <div class="culture-text">
+          <h2 data-translate="tribal-culture">Experience Food</h2>
+          <p data-translate="culture-desc">Experience the true taste of travel. From local street bites to royal feasts, every dish tells a story of culture and flavor.</p>
+          <div class="culture-features">
+            <div class="feature">
+              <i class="fa-solid fa-utensils"></i>
+              <span>Food verity</span>
+            </div>
+            <div class="feature">
+              <i class="fa-solid fa-hotel"></i>
+              <span>Hotels</span>
+            </div>
+            <div class="feature">
+              <i class="fa-solid fa-burger"></i>
+              <span>Famous Foods</span>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="openModal('culture')">Explore Food</button>
+        </div>
+        <div class="culture-media">
+          <div class="culture-gallery">
+            <img src="Food.jpeg" alt="Food">
+            <div class="gallery-overlay">
+              <button onclick="startVR('culture')">VR Experience</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="container">
+      <h2 data-translate="our-services">Our Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <i class="fas fa-route"></i>
+          <h3>Trip Planning</h3>
+          <p>Customized itineraries for your perfect journey</p>
+          <button onclick="window.location.href='trip.html'">Plan Trip</button>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-hotel"></i>
+          <h3>Accommodation</h3>
+          <p>Find the best hotels and homestays</p>
+          <button onclick="openModal('accommodation')">Book Stay</button>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-user-friends"></i>
+          <h3>Local Guides</h3>
+          <p>Expert guides for authentic experiences</p>
+          <button onclick="openModal('guide')">Find Guide</button>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-camera"></i>
+          <h3>Photography</h3>
+          <p>Capture memories with professional photographers</p>
+          <button onclick="openModal('photography')">Book Session</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  
+</body>
+</html><div class = "service-card">
+          <i class="fas fa-wallet"></i>
+          <h3>Budget Planner</h3>
+          <p>Smart budget management for your travels</p>
+          <button onclick="window.location.href='budget.html'">Calculate Budget</button>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-user-friends"></i>
+          <h3>Local Guides</h3>
+          <p>Expert local guides for authentic experiences</p>
+          <button onclick="openModal('guide')">Book Guide</button>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Safety & Security</h3>
+          <p>24/7 safety monitoring and emergency support</p>
+          <button onclick="openModal('safety')">Safety Info</button>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-shopping-bag"></i>
+          <h3>Handicraft Store</h3>
+          <p>Authentic tribal handicrafts and souvenirs</p>
+          <button onclick="openModal('marketplace')">Shop Now</button>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-calendar-alt"></i>
+          <h3>Event Management</h3>
+          <p>Organize and participate in local events</p>
+          <button onclick="openModal('events')">View Events</button>
+        </div>
+      </div>
+    </div>
+  </section><br><br>   
+
+  <section class="faq">
+    <div class="container">
+      <h2 data-translate="faq">Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>What is the best time to visit India?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>The best time to visit India is from October to March when the weather is pleasant and ideal for sightseeing.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>How can I book a local guide?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>You can book certified local guides through our platform. Click on the Guide service or use our chatbot for assistance.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>Are there emergency services available?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, we provide 24/7 emergency support including medical assistance, police, and tourist helpline services.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="social-feed">
+    <div class="container">
+      <h2 data-translate="social-posts">Latest from Social Media</h2><br><br>
+      <div class="social-grid">
+        <div class="social-post">
+          <div class="post-header">
+            <img src="Travelar pic 1.png" alt="User">
+            <div>
+              <h4>@Adventurous_Ayush</h4>
+              <span>2 hours ago</span>
+            </div>
+          </div>
+          <p>Tokyo beautifully balances calm and chaos, offering moments of peace amid a vibrant rush of life. Its glowing skyline and rich culture make every moment feel effortlessly unforgettable.</p>
+          <img src="Tokiyo Japan.jpeg" alt="Post">
+        </div>
+        <div class="social-post">
+          <div class="post-header">
+            <img src="Travelar pic 2.png" alt="User">
+            <div>
+              <h4>@Pramods_Path</h4>
+              <span>5 hours ago</span>
+            </div>
+          </div>
+          <p>Thailand is a land of golden temples, tropical beaches, and warm smiles that make every traveler feel at home. From bustling Bangkok streets to serene island sunsets, it’s a paradise where culture and beauty blend perfectly</p>
+          <img src="Bangkok.jpeg" alt="Post">
+        </div>
+        <div class="social-post">
+          <div class="post-header">
+            <img src="Travelar pic 3.png" alt="User">
+            <div>
+              <h4>@Aesthetic_Adarsh</h4>
+              <span>5 hours ago</span>
+            </div>
+          </div>
+          <p>Visiting Kedarnath was a soul-stirring experience — the sight of the temple surrounded by snow-clad peaks felt truly divine. The serenity of the Himalayas and the spiritual energy of Lord Shiva made it a journey of faith and inner peace.</p>
+          <img src="Kedarnath Temple.jpeg" alt="Post">
+        </div>
+      </div>
+    </div>
+  </section><br><br>
+
+  <section class="feedback">
+    <div class="container">
+      <h2 data-translate="feedback">Share Your Experience</h2>
+      <form class="feedback-form">
+        <div class="form-group">
+          <input type="text" placeholder="Your Name" required><br><br>
+          <input type="email" placeholder="Email" required><br><br>
+        </div>
+        <div class="rating">
+          <span>Rate your experience:</span>
+          <div class="stars">
+            <i class="fas fa-star" data-rating="1"></i>
+            <i class="fas fa-star" data-rating="2"></i>
+            <i class="fas fa-star" data-rating="3"></i>
+            <i class="fas fa-star" data-rating="4"></i>
+            <i class="fas fa-star" data-rating="5"></i><br><br>
+          </div>
+        </div>
+        <textarea placeholder="Share your experience..." rows="4" required></textarea> <br><br>
+        <button type="submit" class="btn-primary">Submit Feedback</button><br><br><br><br>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 data-translate="contact-us">Contact Us</h2>
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h4>Address</h4>
+              <p>Ground Floor, Orbit Plaza, MG Road<br> Bengaluru, Karnataka – 560001</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h4>Phone</h4>
+              <p>+91 98765 43210</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <h4>Email</h4>
+              <p>official.travelpoint@gmail.com</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form">
+          <input type="text" placeholder="Your Name" required><br>
+          <input type="email" placeholder="Your Email" required><br><br>
+          <textarea placeholder="Your Message" rows="5" required></textarea><br><br>
+          <button type="submit" class="btn-primary">Send Message</button><br>
+        </form>
+      </div>
+    </div>
+  </section> <br>
+
+<footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Travel Point Tourism</h3>
+          <p>Discover the natural beauty and rich culture of World</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#culture">Culture</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Emergency</h4>
+          <ul>
+            <li>Police: 100</li>
+            <li>Fire: 101</li>
+            <li>Ambulance: 108</li>
+            <li>Tourist Helpline: 1363</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Travel Point Tourism. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="chatbot" class="chatbot">
+    <div class="chatbot-header">
+      <h4>Tourism Assistant</h4>
+      <button id="chatbot-toggle"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="message bot-message">
+        <p>Hello! I'm your tourism assistant. How can I help you today?</p>
+      </div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatbot-input" placeholder="Type your message...">
+      <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+  <button id="chatbot-fab" class="chatbot-fab">
+    <i class="fas fa-comments"></i>
+  </button>
+
+  <div id="ar-vr-modal" class="modal">
+    <div class="modal-content ar-vr-content">
+      <span class="close">&times;</span>
+      <div class="ar-vr-container">
+        <h3>Immersive Experience</h3>
+        <div class="ar-vr-viewer">
+          <div class="ar-placeholder">
+            <i class="fas fa-cube"></i>
+            <p>AR/VR Experience Loading...</p>
+          </div>
+        </div>
+        <div class="ar-vr-controls">
+          <button onclick="toggleAR()">Toggle AR</button>
+          <button onclick="toggleVR()">Toggle VR</button>
+          <button onclick="resetView()">Reset View</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</body>
+</html>
